@@ -1,0 +1,17 @@
+clear
+use cyrect.dta, clear
+
+rename col1 c
+rename col2 y
+gen z = y - c
+
+* OLS
+reg c y
+est store ols
+
+* IV
+ivreg c (y=z)
+est store iv
+
+* Hausman test
+hausman iv ols
